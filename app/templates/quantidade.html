@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ super() }} - Produção (Kg)
+{% endblock %}
+{% block content %}
+    <p>{{ data }}</p>
+    <br>
+    <a href="{{ request.referrer }}">
+        <input class="btn btn-block" type="button" value="Voltar">
+    </a>
+{% endblock %}

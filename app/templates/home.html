@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ super() }} - Home
+{% endblock %}
+{% block content %}
+    <h1>Produção do Mel</h1>
+    <ul>
+        <li>
+            <a href="{{ url_for('bp_ibge.quantidade') }}">Quantidade (Kg)</a>
+        </li>
+        <li>
+            <a href="{{ url_for('bp_ibge.valor') }}">Valor da produção (Mil Reais)</a>
+        </li>
+        <li>
+            <a href="{{ url_for('bp_ibge.percentual') }}">Valor da produção - Percentual do total geral</a>
+        </li>
+    </ul>
+{% endblock %}
