@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+{% block metas %}
+    {{ super() }}
+    <meta name="description" content="Visualização de dados da Pesquisa da Pecuária Municipal sobre a produção de mel.">
+{% endblock %}
 {% block title %}
     {{ super() }} - Home
 {% endblock %}
+
 {% block content %}
     <h1>Produção do Mel</h1>
     <p>
