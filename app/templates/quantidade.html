@@ -29,6 +29,7 @@
             </tr>
             </tbody>
         </table>
+        <canvas id="graficopais"></canvas>
         <table id="regiao" class="table table-hover table-bordered table-responsive-lg">
             <caption>Produção nas Grandes Regiões</caption>
             <thead class="thead-dark">
@@ -53,6 +54,7 @@
             {% endfor %}
             </tbody>
         </table>
+        <canvas id="graficoregiao"></canvas>
         <table id="estado" class="table table-hover table-bordered table-responsive-lg">
             <caption>Produção nos Estados</caption>
             <thead class="thead-dark">
@@ -77,10 +79,102 @@
             {% endfor %}
             </tbody>
         </table>
+        <canvas id="graficoestado"></canvas>
+        <canvas id="graficopiaui"></canvas>
         <br>
         <a href="{{ request.referrer }}">
             <button type="button" class="btn btn-primary btn-block">Voltar</button>
         </a>
     </div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        let dynamicColors = function () {
+            const r = Math.floor(Math.random() * 255);
+            const g = Math.floor(Math.random() * 255);
+            const b = Math.floor(Math.random() * 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        };
 
+        function build_datasets(json, exclude, only) {
+            const datasets = [];
+            let labels = Object.keys(json);
+            if (exclude === null) {
+                if (only && labels[only] !== null) {
+                    datasets.push(
+                        {
+                            label: only,
+                            data: Object.values(json[only]),
+                            backgroundColor: dynamicColors(),
+                            fill: false
+                        }
+                    )
+                }
+            } else {
+                for (const l in labels) {
+                    if (exclude !== null && exclude === labels[l]) {
+                        continue;
+                    }
+                    let dataset = {
+                        label: labels[l],
+                        data: Object.values(json[labels[l]]),
+                        backgroundColor: dynamicColors(),
+                        fill: false
+                    }
+                    datasets.push(dataset);
+                }
+            }
+            console.log(datasets)
+            return datasets;
+        }
+
+        let pais = JSON.parse('{{ (((pais.values())|list)[0]|tojson) }}');
+        let regioes = JSON.parse('{{ regiao|tojson }}');
+        let estados = JSON.parse('{{ estado|tojson }}');
+
+        keys = Object.keys(pais);
+        producaopais = Object.values(pais);
+
+        let brasil = document.getElementById('graficopais');
+        let regiao = document.getElementById('graficoregiao');
+        let estado = document.getElementById('graficoestado');
+        let piaui = document.getElementById('graficopiaui');
+
+        let chartbrasil = new Chart(brasil, {
+            type: 'line',
+            data: {
+                labels: keys,
+                datasets: [
+                    {
+                        label: 'Brasil',
+                        data: producaopais,
+                        backgroundColor: dynamicColors(),
+                        fill: false
+                    }
+                ]
+            }
+        });
+        let chartregiao = new Chart(regiao, {
+            type: 'line',
+            data: {
+                labels: keys,
+                datasets: build_datasets(regioes)
+            }
+        });
+        let chartestados = new Chart(estado, {
+            type: 'line',
+            data: {
+                labels: keys,
+                datasets: build_datasets(estados, "Piauí")
+            }
+        });
+        let chartpiaui = new Chart(piaui, {
+            type: 'line',
+            data: {
+                labels: keys,
+                datasets: build_datasets(estados, null, "Piauí")
+            }
+        });
+    </script>
 {% endblock %}
