@@ -17,14 +17,38 @@ def index():
 
 @bp_ibge.route('/quantidade/')
 def quantidade():
-    return render_template("quantidade.html", data=data[0])
+    index = 0
+    pais = data_build(index, 'N1')
+    regiao = data_build(index, 'N2')
+    estado = data_build(index, 'N3')
+    return render_template("quantidade.html", pais=pais, regiao=regiao, estado=estado)
 
 
 @bp_ibge.route('/valor/')
 def valor():
-    return render_template("valor.html", data=data[1])
+    index = 1
+    pais = data_build(index, 'N1')
+    regiao = data_build(index, 'N2')
+    estado = data_build(index, 'N3')
+    return render_template("valor.html", pais=pais, regiao=regiao, estado=estado)
 
 
 @bp_ibge.route('/percentual/')
 def percentual():
-    return render_template("percentual.html", data=data[2])
+    index = 2
+    pais = data_build(index, 'N1')
+    regiao = data_build(index, 'N2')
+    estado = data_build(index, 'N3')
+
+    return render_template("percentual.html", pais=pais, regiao=regiao, estado=estado)
+
+
+def data_build(index, lv):
+    dado = {}
+    dado_base = data[index]['resultados'][0]['series']
+    for item in dado_base:
+        localidade_base = item['localidade']
+        if localidade_base['nivel']['id'] == lv:
+            localidade = localidade_base['nome']
+            dado[localidade] = item['serie']
+    return dado

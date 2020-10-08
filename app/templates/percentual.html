@@ -1,11 +1,98 @@
 {% extends 'base.html' %}
 {% block title %}
-    {{ super() }} - Percentual do Valor da Produção
+    {{ super() }} - Valor da Produção - Percentual do Total Geral
 {% endblock %}
 {% block content %}
-    <p>{{ data }}</p>
-    <br>
-    <a href="{{ request.referrer }}">
-        <input class="btn btn-block" type="button" value="Voltar">
-    </a>
+    <div class="container-fluid text-center">
+        <h1>Valor da Produção - Percentual do Total Geral</h1>
+        <table id="pais" class="table table-hover table-bordered table-responsive-lg">
+            <caption>Percentual no Brasil</caption>
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-center" style="vertical-align: middle" rowspan="2">Pais</th>
+                <th class="text-center" colspan="{{ (pais.values()|list)[0].keys()|length }}">Ano</th>
+            </tr>
+            <tr>
+                {% for ano in (pais.values()|list)[0].keys() %}
+                    <th class="text-center">{{ ano }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-center">{{ (pais.keys()|list)[0] }}</td>
+                {% for k in pais.values() %}
+                    {% for value in k.values() %}
+                        <td class="text-center">{{ value }}</td>
+                    {% endfor %}
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+        <table id="regiao" class="table table-hover table-bordered table-responsive-lg">
+            <caption>Percentual nas grandes regiões</caption>
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-center" style="vertical-align: middle" rowspan="2">Grande Região</th>
+                <th class="text-center" colspan="{{ (regiao.values()|list)[0].keys()|length }}">Ano</th>
+            </tr>
+            <tr>
+                {% for ano in (regiao.values()|list)[0].keys() %}
+                    <th class="text-center">{{ ano }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for k, v in regiao.items() %}
+                <tr>
+                    <td class="text-center">{{ k }}</td>
+                    {% for value in v.values() %}
+                        <td class="text-center">{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table id="estado" class="table table-hover table-bordered table-responsive-lg">
+            <caption>Percentual nos estados</caption>
+            <thead class="thead-dark">
+            <tr>
+                <th class="text-center" style="vertical-align: middle" rowspan="2">Unidade da Federação</th>
+                <th class="text-center" colspan="{{ (estado.values()|list)[0].keys()|length }}">Ano</th>
+            </tr>
+            <tr>
+                {% for ano in (estado.values()|list)[0].keys() %}
+                    <th class="text-center">{{ ano }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for k, v in estado.items() %}
+                <tr>
+                    <td class="text-center">{{ k }}</td>
+                    {% for value in v.values() %}
+                        <td class="text-center">{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a href="{{ request.referrer }}">
+            <button type="button" class="btn btn-primary btn-block">Voltar</button>
+        </a>
+    </div>
+
 {% endblock %}
+{#{% block scripts %}#}
+{#    {{ super() }}#}
+{#    <script src="{{ url_for('static', filename='js/percentual.js') }}"></script>#}
+{#    <script>#}
+{#        var pais = new Vue({#}
+{#            el: '#pais',#}
+{#            data: {#}
+{#                paises: '{{ pais|tojson|safe }}'#}
+{#            }#}
+{#        })#}
+{#    </script>#}
+{#{% endblock %}#}
