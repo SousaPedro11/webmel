@@ -4,6 +4,10 @@
 {% endblock %}
 {% block content %}
     <h1>Produção do Mel</h1>
+    <p>
+        Visualização de dados da Pesquisa da Pecuária Municipal sobre a produção de mel.<br>
+        Os dados foram obtidos a partir da API pública do IBGE no endpoint agregadados (<a href="https://servicodados.ibge.gov.br/api/docs/agregados?versao=3" target="_blank">link</a>).
+    </p>
     <ul>
         <li>
             <a href="{{ url_for('bp_ibge.quantidade') }}">Quantidade (Kg)</a>
