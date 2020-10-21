@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}
-    {{ super() }} - Valor da Produção (Mil Reais)
-{% endblock %}
 {% block content %}
     <div class="container-fluid text-center">
         <h1>
             {% block titleviewer %}{% endblock %}
         </h1>
         <h2>No Brasil</h2>
-        <table id="pais" class="table table-hover table-bordered table-responsive-lg">
-            <caption>Valor da Produção no Brasil<br>Fonte: IBGE - Pesquisa da Pecuária Municipal</caption>
+        <table id="pais" class="table table-hover table-bordered table-responsive-md">
+            <caption>Produção no Brasil<br>Fonte: IBGE - Pesquisa da Pecuária Municipal</caption>
             <thead class="thead-dark">
             <tr>
                 <th class="text-center" style="vertical-align: middle" rowspan="2">Pais</th>
@@ -35,8 +32,8 @@
         <canvas id="graficopais"></canvas>
         <br>
         <h2>Nas Grandes Regioes</h2>
-        <table id="regiao" class="table table-hover table-bordered table-responsive-lg">
-            <caption>Valor da Produção nas Grandes Regiões<br>Fonte: IBGE - Pesquisa da Pecuária Municipal</caption>
+        <table id="regiao" class="table table-hover table-bordered table-responsive-md">
+            <caption>Produção nas Grandes Regiões<br>Fonte: IBGE - Pesquisa da Pecuária Municipal</caption>
             <thead class="thead-dark">
             <tr>
                 <th class="text-center" style="vertical-align: middle" rowspan="2">Grande Região</th>
@@ -62,8 +59,8 @@
         <canvas id="graficoregiao"></canvas>
         <br>
         <h2>Nos Estados da Região Norte e Piauí</h2>
-        <table id="estado" class="table table-hover table-bordered table-responsive-lg">
-            <caption>Valor da Produção nos Estados<br>Fonte: IBGE - Pesquisa da Pecuária Municipal</caption>
+        <table id="estado" class="table table-hover table-bordered table-responsive-md">
+            <caption>Produção nos Estados<br>Fonte: IBGE - Pesquisa da Pecuária Municipal</caption>
             <thead class="thead-dark">
             <tr>
                 <th class="text-center" style="vertical-align: middle" rowspan="2">Unidade da Federação</th>
